@@ -37,25 +37,10 @@ class Db(metaclass=Singleton):
                 print(f"failed to connect to db: {e}")
         return get_connection_wrapper
 
-    # def _init_connection(self):
-    #     try:
-    #         mydb = mysql.connector.connect(
-    #             host=self.db_url,
-    #             user=self.user_name,
-    #             password=self.db_password,
-    #             database=self.db_name
-    #                                     )
-    #     except Exception as e:
-    #         print(f"failed to connect to db: {e}")
-    #     finally:
-    #         return mydb
-
-
     @get_connection
     def query(self, connection = None, query = ''):
         if not query or not connection:
             return False
-        #query = self.make_escape(query)
         with connection.cursor() as cursor:
             cursor.execute(query)
             return cursor.fetchall()
@@ -75,8 +60,6 @@ class Db(metaclass=Singleton):
         values += ")"
 
         query = f"INSERT INTO `{tb_name}` {fields} VALUES {values}"
-        print(query)
         with connection.cursor() as cursor:
-            print(model_dict.values(), tuple((model_dict.values())))
             cursor.execute(query, tuple(model_dict.values()))
             connection.commit()

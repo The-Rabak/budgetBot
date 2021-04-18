@@ -7,9 +7,9 @@ from telegram.ext import (
     ConversationHandler,
     CallbackContext,
 )
-from budgetBot.classes.singleton import Singleton
+from classes.singleton import Singleton
 from flask import request
-from budgetBot.bot.creds import bot_token, bot_user_name,URL
+from bot.creds import bot_token, bot_user_name,URL
 
 
 

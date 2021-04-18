@@ -1,6 +1,6 @@
-from budgetBot.classes.singleton import Singleton
+from classes.singleton import Singleton
 import mysql.connector
-from budgetBot.bot.creds import db_name, db_password, db_url, db_user_name
+from bot.creds import db_name, db_password, db_url, db_user_name
 import functools
 import logging
 import time

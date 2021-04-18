@@ -1,7 +1,7 @@
 from flask import Flask, request
-from budgetBot.classes.teleBot import TeleBot
-from budgetBot.classes.Db import Db
-from budgetBot.classes.models.new_expense import NewExpense
+from classes.teleBot import TeleBot
+from classes.Db import Db
+from classes.models.new_expense import NewExpense
 
 import re
 import logging
@@ -35,15 +35,19 @@ def start(update: Update, _: CallbackContext) -> int:
 
 def parse_action(update:Update, _: CallbackContext) ->int:
     action = update.message.text.lower()
-    user = update.message.chat.username
-    logger.info(f"action: {action}, context: {_}")
+
+    logger.info(f"action: {action}, context: {_}\n\n update:{update.effective_user}")
+        
+    user_id = update.effective_user.id
+
+    logger.info(f"action: {action}, context: {_}\n\n user_id:{user_id}")
 
     if action == 'report':
         pass
     elif action == 'new':
         expense_model = NewExpense()
         expense_model.set_default_values()
-        expense_model.set_user(user)
+        expense_model.set_user_id(user_id)
         return NEW_TRANSACTION
     elif action == 'commit':
         return END_TRANSACTION
